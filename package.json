@@ -15,8 +15,9 @@
     "cssnano": "^4.1.10",
     "del": "^4.1.1",
     "gulp": "^4.0.2",
+    "gulp-eslint": "^5.0.0",
+    "gulp-if": "^2.0.2",
     "gulp-imagemin": "^6.0.0",
-    "gulp-js-minify": "0.0.3",
     "gulp-newer": "^1.4.0",
     "gulp-nunjucks-html": "^2.0.0",
     "gulp-plumber": "^1.2.1",
@@ -24,7 +25,10 @@
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-webp": "^4.0.1",
-    "swiper": "^4.5.0"
+    "path": "^0.12.7",
+    "swiper": "^4.5.0",
+    "webpack": "^4.34.0",
+    "webpack-stream": "^5.2.1"
   },
   "dependencies": {}
 }

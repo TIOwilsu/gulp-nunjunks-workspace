@@ -2,16 +2,20 @@ const autoprefixer = require('autoprefixer')
 const browsersync = require('browser-sync').create()
 const cssnano = require('cssnano')
 const del = require('del')
+const eslint = require('gulp-eslint')
 const gulp = require('gulp')
 const imagemin = require('gulp-imagemin')
 const newer = require('gulp-newer')
 const plumber = require('gulp-plumber')
 const postcss = require('gulp-postcss')
-const minifyjs = require('gulp-js-minify')
 const nunjucks = require('gulp-nunjucks-html')
 const rename = require('gulp-rename')
 const sass = require('gulp-sass')
 const webp = require('gulp-webp')
+const webpack = require('webpack')
+const webpackconfig = require('./webpack.config.js')
+const webpackstream = require('webpack-stream')
+   
 
 // BrowserSync
 function browserSync(done) {
@@ -29,25 +33,32 @@ function clean() {
   return del(['dist']);
 }
 
-// Copy files
-function copy(){
+// Copy assets
+function copyAssets(){
   return gulp
-    .src('build/**/*','build/*.html')
-    .pipe(gulp.dest('dist/assets','dist/pages'))
+    .src('build/assets/**/*')
+    .pipe(gulp.dest('dist/assets'))
 }
 
-// Copy fonts
+// Copy html
+function copyHTML(){
+  return gulp
+    .src('build/*.html')
+    .pipe(gulp.dest('dist/pages'))
+}
+
+// Copy fonts 
 function fonts() {
   return gulp
     .src('src/assets/fonts/*')
-    .pipe(gulp.dest('build/fonts'))
+    .pipe(gulp.dest('build/assets/fonts'))
 }
 
 // Optimize Images
 function images() {
   return gulp
     .src('src/assets/images/**/*')
-    .pipe(newer('build/images'))
+    .pipe(newer('build/assets/images'))
     .pipe(
       imagemin([
         imagemin.gifsicle({ interlaced: true }),
@@ -63,11 +74,11 @@ function images() {
         })
       ])
     )
-    .pipe(gulp.dest('build/images'))  
+    .pipe(gulp.dest('build/assets/images'))  
 }  
 
 // Convert images to webp
-function imageswebp() {
+function imagesWebp() {
   return gulp
   .src('src/assets/images/**/*.{jpg,png}')
   .pipe(
@@ -77,7 +88,7 @@ function imageswebp() {
       method: 6
     })
   )
-  .pipe(gulp.dest('build/images'))
+  .pipe(gulp.dest('build/assets/images'))
 }
  
 // CSS task
@@ -88,19 +99,30 @@ function css() {
     .pipe(sass({ outputStyle: 'expanded' }))
     .pipe(rename({ suffix: ".min" }))
     .pipe(postcss([autoprefixer(), cssnano()]))
-    .pipe(gulp.dest('build/css'))
+    .pipe(gulp.dest('build/assets/css'))
     .pipe(browsersync.stream())
+}
+
+// Lint scripts
+function scriptsLint() {
+  return gulp
+    .src(['src/assets/js/**/*', './gulpfile.js'])
+    .pipe(plumber())
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 }
 
 // Transpile, concatenate and minify scripts
 function scripts() {
   return (
     gulp
-      .src(['src/assets/js/*'])
+      .src(['src/assets/js/**/*'])
       .pipe(plumber())
-      .pipe(minifyjs())
-      .pipe(gulp.dest('build/js'))
-  )
+      .pipe(webpackstream(webpackconfig, webpack))
+      .pipe(gulp.dest('build/assets/js'))
+      .pipe(browsersync.stream())
+  ) 
 }
 
 // HTML task
@@ -115,17 +137,17 @@ function html(){
 // Watch files
 function watchFiles() {
   gulp.watch('src/assets/scss/**/*.scss', css) 
-  gulp.watch("src/assets/js/*", scripts)
+  gulp.watch('src/assets/js/*', gulp.series(scriptsLint,scripts))
   gulp.watch('src/templates/**/*.html', html) 
   gulp.watch('src/assets/images/**/*', images)
 }
 
-const js = gulp.series(scripts)
-const build = gulp.series(clean,copy)
+const js = gulp.series(scriptsLint,scripts)
+const build = gulp.series(clean,copyAssets,copyHTML)
 const watch = gulp.parallel([watchFiles,browserSync,css,scripts,html,images,fonts])
 
 exports.images = images
-exports.imageswebp = imageswebp
+exports.imagesWebp = imagesWebp
 exports.css = css
 exports.html = html
 exports.js = js
