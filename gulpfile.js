@@ -28,7 +28,7 @@ function browserSync(done) {
   done();
 }
 
-// Clean assets
+// Clean dist
 function clean() {
   return del(['dist']);
 }
@@ -48,7 +48,7 @@ function copyHTML(){
 }
 
 // Copy fonts 
-function fonts() {
+function copyFonts() {
   return gulp
     .src('src/assets/fonts/*')
     .pipe(gulp.dest('build/assets/fonts'))
@@ -106,7 +106,7 @@ function css() {
 // Lint scripts
 function scriptsLint() {
   return gulp
-    .src(['src/assets/js/**/*', './gulpfile.js'])
+    .src(['src/assets/js/*', './gulpfile.js'])
     .pipe(plumber())
     .pipe(eslint())
     .pipe(eslint.format())
@@ -144,7 +144,7 @@ function watchFiles() {
 
 const js = gulp.series(scriptsLint,scripts)
 const build = gulp.series(clean,copyAssets,copyHTML)
-const watch = gulp.parallel([watchFiles,browserSync,css,scripts,html,images,fonts])
+const watch = gulp.parallel([watchFiles,browserSync,css,scripts,html,images,copyFonts])
 
 exports.images = images
 exports.imagesWebp = imagesWebp

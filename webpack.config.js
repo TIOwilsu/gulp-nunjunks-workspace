@@ -10,7 +10,7 @@ module.exports = {
         ],
     },
     output: {
-        path: path.resolve(__dirname, 'build') + '/js',
+        path: path.resolve(__dirname, 'build') + '/assets/js',
         filename: '[name]',
     },
 
