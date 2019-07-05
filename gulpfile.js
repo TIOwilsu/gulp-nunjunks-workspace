@@ -128,7 +128,7 @@ function scripts() {
 // HTML task
 function html(){
   return gulp
-    .src(['src/templates/*.html'])
+    .src(['src/templates/**/*.html', '!src/templates/partials/**'])
 		.pipe(nunjucks({searchPaths: ['src/templates/']}))
 		.pipe(gulp.dest('build'))
 		.pipe(browsersync.stream())
