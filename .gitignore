@@ -1,4 +1,13 @@
+# Node.js
 /node_modules
+
+# Unnecessery folder(s)
 /dist
 /build
+
+# Unnecessery File(s)
 package-lock.json
+
+#  Config files MS Code
+.DS_Store
+/**/.DS_Store

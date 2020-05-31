@@ -45,7 +45,10 @@ module.exports = {
         src: {
             custom: './src/assets/js/*.js',
             all: [
+                './src/assets/js/vendors/jquery.js',
                 './src/assets/js/vendors/swiper.js',
+                './src/assets/js/vendors/bootstrap.js',
+                './src/assets/js/vendors/nouislider.js',
                 './src/assets/js/*.js',
             ],
         },
@@ -58,6 +61,7 @@ module.exports = {
             pages: [
                 './src/templates/**/*.html',
                 '!src/templates/partials/**',
+                '!src/templates/components/**',
             ],
             all: './src/templates/**/*.html',
         },
