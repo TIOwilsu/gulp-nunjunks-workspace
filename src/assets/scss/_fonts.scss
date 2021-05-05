@@ -1,0 +1,72 @@
+// Light
+@font-face {
+  font-display: $font-display;
+  font-family: $font;
+  font-style: normal;
+  font-weight: 300;
+  src: $font-light-src;
+}
+
+// Light Italic
+
+@font-face {
+  font-display: $font-display;
+  font-family: $font;
+  font-style: italic;
+  font-weight: 300;
+  src: $font-lightitalic-src;
+}
+
+// Regular
+@font-face {
+  font-display: $font-display;
+  font-family: $font;
+  font-style: normal;
+  font-weight: 400;
+  src: $font-regular-src;
+}
+
+// Medium
+@font-face {
+  font-display: $font-display;
+  font-family: $font;
+  font-style: normal;
+  font-weight: 500;
+  src: $font-medium-src;
+}
+
+// Medium Italic
+@font-face {
+  font-display: $font-display;
+  font-family: $font;
+  font-style: italic;
+  font-weight: 500;
+  src: $font-mediumitalic-src;
+}
+
+// Semibold
+@font-face {
+  font-display: $font-display;
+  font-family: $font;
+  font-style: normal;
+  font-weight: 600;
+  src: $font-semibold-src;
+}
+
+// Bold
+@font-face {
+  font-display: $font-display;
+  font-family: $font;
+  font-style: normal;
+  font-weight: 700;
+  src: $font-bold-src;
+}
+
+// Black
+@font-face {
+  font-display: $font-display;
+  font-family: $font;
+  font-style: normal;
+  font-weight: 900;
+  src: $font-black-src;
+}

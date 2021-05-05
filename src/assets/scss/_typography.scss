@@ -1,0 +1,29 @@
+h1 {
+  font-size: em(32);
+  font-weight: 300;
+  line-height: 44px;
+  @media (min-width: $breakpoint-md) {
+    font-size: em(42);
+    line-height: 66px;
+  }
+}
+
+h2 {
+  font-size: em(16);
+  font-weight: 900;
+  line-height: 22px;
+  @media (min-width: $breakpoint-md) {
+    font-size: em(24);
+    line-height: 33px;
+  }
+}
+
+h3 {
+  font-size: em(28);
+  font-weight: 500;
+  line-height: 39px;
+  @media (min-width: $breakpoint-md) {
+    font-size: em(32);
+    line-height: 44px;
+  }
+}

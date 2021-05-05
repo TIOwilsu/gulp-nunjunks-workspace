@@ -1,0 +1,14 @@
+@each $display in $displays {
+  .d-#{$display} {
+    display: $display !important;
+  }
+}
+@each $display in $displays {
+  @each $breakpointName, $breakpointValue in $breakpoints {
+    @media (min-width: $breakpointValue) {
+      .d-#{$breakpointName}-#{$display} {
+        display: $display !important;
+      }
+    }
+  }
+}
